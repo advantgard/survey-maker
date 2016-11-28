@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quick Survey</title>
+
+    <style type="text/css">
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .js-survey-item {
+            display: none;
+        }
+
+        .js-survey-item.js-visible {
+            display: list-item;
+        }
+
+        .js-prev, .js-next, .js-done {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Take a quick survey and get an answer!</h1>
+
+    <div class="js-quick-survey">
+        <ol class="js-survey-container"></ol>
+        <div class="js-survey-controls">
+            <a href="javascript:void(0)" class="js-prev"><< Prev</a>
+            <a href="javascript:void(0)" class="js-next">Next >></a>
+            <a href="javascript:void(0)" class="js-done">Done</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="/quick-survey/js/survey-maker.js"></script>
+
+    <script type="text/javascript">
+            
+            $(function () {
+
+                "use strict";
+
+                $.ajax({
+                    url: "/quick-survey/json/test-survey.json",
+                    dataType: "json"
+                })
+                        .done(function (config) {
+                            var substantialPresenceTest = new window.appScripts.quickSurvey(config);
+                            substantialPresenceTest.init();
+                        })
+                ;
+
+            });
+
+    </script>
+</body>
+</html>

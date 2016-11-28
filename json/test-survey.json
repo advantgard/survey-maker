@@ -1,0 +1,37 @@
+{
+  "questions": [
+
+    {
+      "question": "Question 1",
+      "answers": [
+        "Yes",
+        "No"
+      ]
+    },
+
+    {
+      "question": "Question 2",
+      "answers": [
+        "Yes",
+        "No"
+      ]
+    },
+
+    {
+      "question": "Question 3",
+      "answers": [
+        "Yes",
+        "No"
+      ]
+    },
+
+    {
+      "question": "Question 4",
+      "answers": [
+        "Yes",
+        "No"
+      ]
+    }
+
+  ]
+}
