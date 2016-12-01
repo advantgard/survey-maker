@@ -21,27 +21,35 @@
             display: list-item;
         }
 
-        .js-prev, .js-next, .js-done {
+        .js-survey-prev, .js-survey-next, .js-survey-done {
             display: none;
         }
 
+        .survey-answer-selected > a {
+            color: red;
+        }
+
     </style>
+
+    <link rel="stylesheet" href="less/app.css">
 </head>
 <body>
 
-    <h1>Take a quick survey and get an answer!</h1>
+    <div class="survey-maker">
+        <h1>Take a quick survey and get an answer!</h1>
 
-    <div class="js-quick-survey">
-        <ol class="js-survey-container"></ol>
-        <div class="js-survey-controls">
-            <a href="javascript:void(0)" class="js-prev"><< Prev</a>
-            <a href="javascript:void(0)" class="js-next">Next >></a>
-            <a href="javascript:void(0)" class="js-done">Done</a>
+        <div class="js-quick-survey">
+            <ol class="js-survey-container"></ol>
+            <div class="js-survey-controls">
+                <a href="javascript:void(0)" class="js-survey-prev" data-control-action="prev"><< Prev</a>
+                <a href="javascript:void(0)" class="js-survey-next" data-control-action="next">Next >></a>
+                <a href="javascript:void(0)" class="js-survey-done">Done</a>
+            </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="/quick-survey/js/survey-maker.js"></script>
+    <script src="/survey-maker/js/survey-maker.js"></script>
 
     <script type="text/javascript">
             
@@ -50,15 +58,13 @@
                 "use strict";
 
                 $.ajax({
-                    url: "/quick-survey/json/test-survey.json",
+                    url: "/survey-maker/json/test-survey.json",
                     dataType: "json"
                 })
                         .done(function (config) {
-                            var substantialPresenceTest = new window.appScripts.quickSurvey(config);
+                            var substantialPresenceTest = new window.appScripts.surveyMaker(config);
                             substantialPresenceTest.init();
-                        })
-                ;
-
+                        });
             });
 
     </script>

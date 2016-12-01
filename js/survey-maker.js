@@ -6,11 +6,11 @@
         window.appScripts = {};
     }
 
-    window.appScripts.quickSurvey = function (json) {
+    window.appScripts.surveyMaker = function (json) {
 
         if(json && typeof json === "object") {
             var survey = json;
-            var surveyLength = survey.questions.length;
+            var surveyLength = survey.questions.length - 1;
         } else {
             throw new Error("Survey configuration is missing or invalid.");
         }
@@ -22,15 +22,13 @@
 
         var $parentContainer = $(".js-quick-survey");
         var $questionsContainer = $parentContainer.children(".js-survey-container");
+        var $controlsContainer = $parentContainer.children(".js-survey-controls");
+        var $next = $controlsContainer.children('.js-survey-next');
+        var $prev = $controlsContainer.children('.js-survey-prev');
+        var $done = $controlsContainer.children('.js-survey-done');
 
         var $surveyItems = null;
         var $answers = null;
-
-        api.isSurveyOver = function () {
-
-            return currentQuestion > surveyLength;
-
-        };
 
         /**
          * Renders survey to the DOM
@@ -65,6 +63,24 @@
             $surveyItems.removeClass("js-visible");
             $surveyItems.eq(currentQuestion).addClass("js-visible");
 
+            if(currentQuestion <= 0) {
+                $prev.hide();
+            } else {
+                $prev.show();
+            }
+
+            if(currentQuestion < surveyProgress) {
+                $next.show();
+            } else {
+                $next.hide();
+            }
+
+            if(currentQuestion === surveyLength) {
+                $done.show();
+            } else {
+                $done.hide();
+            }
+
         };
 
         api.cacheSelectors = function () {
@@ -74,22 +90,54 @@
 
         };
 
+        api.next = function () {
+            currentQuestion++;
+            api.renderCurrentItem();
+        };
+
+        api.prev = function () {
+            currentQuestion--;
+            api.renderCurrentItem();
+        };
+
         api.handleAnswer = function () {
 
             var questionIndex = $(this).parents(".js-survey-item").attr("data-item-index");
 
             survey.questions[questionIndex].result = $(this).attr("data-answer-index");
+            $(this).parent().addClass('survey-answer-selected');
 
-            surveyProgress++;
-            currentQuestion++;
+            if(currentQuestion < surveyLength) {
+                surveyProgress++;
+                api.next();
+            }
 
-            api.renderCurrentItem();
+        };
+
+        api.handleControls = function () {
+
+            var action = $(this).attr("data-control-action");
+
+            switch (action) {
+
+                case "next":
+                    api.next();
+                    break;
+                case "prev":
+                    api.prev();
+                    break;
+                default:
+                    throw new Error(action + " - Control action is invalid.");
+                    break;
+
+            }
 
         };
 
         api.bindEvents = function () {
 
             $answers.on("click", api.handleAnswer);
+            $controlsContainer.children().on("click", api.handleControls);
 
         };
 
