@@ -6,7 +6,7 @@
         window.appScripts = {};
     }
 
-    window.appScripts.surveyMaker = function (json) {
+    window.appScripts.surveyMaker = function (json, callback) {
 
         if(json && typeof json === "object") {
             var survey = json;
@@ -30,6 +30,16 @@
 
         var $surveyItems = null;
         var $answers = null;
+
+        api.triggerCallback = function () {
+
+            if(callback && typeof callback === "function") {
+                callback(survey);
+            } else {
+                throw new Error("No callback set for survey");
+            }
+
+        };
 
         /**
          * Renders survey to the DOM
@@ -131,7 +141,7 @@
                     api.prev();
                     break;
                 case "done":
-                    console.log(survey);
+                    api.triggerCallback();
                     break;
                 default:
                     throw new Error(action + " - Control action is invalid.");

@@ -62,7 +62,9 @@
                     dataType: "json"
                 })
                         .done(function (config) {
-                            var substantialPresenceTest = new window.appScripts.surveyMaker(config);
+                            var substantialPresenceTest = new window.appScripts.surveyMaker(config, function (survey) {
+                                console.log(survey);
+                            });
                             substantialPresenceTest.init();
                         });
             });
