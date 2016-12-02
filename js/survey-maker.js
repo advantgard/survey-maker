@@ -19,6 +19,7 @@
 
         var currentQuestion = 0;
         var surveyProgress = 0;
+        var isComplete = false;
 
         var $parentContainer = $(".js-quick-survey");
         var $questionsContainer = $parentContainer.children(".js-survey-container");
@@ -75,7 +76,7 @@
                 $next.hide();
             }
 
-            if(currentQuestion === surveyLength) {
+            if(isComplete) {
                 $done.show();
             } else {
                 $done.hide();
@@ -110,6 +111,9 @@
             if(currentQuestion < surveyLength) {
                 surveyProgress++;
                 api.next();
+            } else if (currentQuestion === surveyLength) {
+                isComplete = true;
+                api.renderCurrentItem();
             }
 
         };
@@ -125,6 +129,9 @@
                     break;
                 case "prev":
                     api.prev();
+                    break;
+                case "done":
+                    console.log(survey);
                     break;
                 default:
                     throw new Error(action + " - Control action is invalid.");
