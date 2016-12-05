@@ -71,8 +71,14 @@
 
         api.renderCurrentItem = function () {
 
-            $surveyItems.removeClass("js-visible");
-            $surveyItems.eq(currentQuestion).addClass("js-visible");
+            $surveyItems.hide();
+            $surveyItems.eq(currentQuestion).show();
+
+            if(surveyProgress === 0) {
+                $prev.hide();
+                $next.hide();
+                $done.hide();
+            }
 
             if(currentQuestion <= 0) {
                 $prev.hide();
@@ -113,12 +119,16 @@
 
         api.handleAnswer = function () {
 
-            var questionIndex = $(this).parents(".js-survey-item").attr("data-item-index");
+            var $this = $(this);
+            var $parent = $this.parent();
 
-            survey.questions[questionIndex].result = $(this).attr("data-answer-index");
-            $(this).parent().addClass('survey-answer-selected');
+            var questionIndex = $this.parents(".js-survey-item").attr("data-item-index");
 
-            if(currentQuestion < surveyLength) {
+            survey.questions[questionIndex].result = $this.attr("data-answer-index");
+            $parent.siblings().removeClass('survey-answer-selected');
+            $parent.addClass('survey-answer-selected');
+
+            if(currentQuestion < surveyLength && currentQuestion === surveyProgress) {
                 surveyProgress++;
                 api.next();
             } else if (currentQuestion === surveyLength) {

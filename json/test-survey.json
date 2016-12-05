@@ -2,34 +2,39 @@
   "questions": [
 
     {
-      "question": "Question 1",
+      "question": "What is your favorite color?",
       "answers": [
-        "Yes",
-        "No"
+        "Red",
+        "Yellow",
+        "Green",
+        "Blue"
       ]
     },
 
     {
-      "question": "Question 2",
+      "question": "What is your favorite food?",
       "answers": [
-        "Yes",
-        "No"
+        "Pizza",
+        "Hamburger",
+        "Sushi"
       ]
     },
 
     {
-      "question": "Question 3",
+      "question": "Where do you like to travel?",
       "answers": [
-        "Yes",
-        "No"
+        "Paris",
+        "Japan",
+        "Australia",
+        "Europe"
       ]
     },
 
     {
-      "question": "Question 4",
+      "question": "Dogs or cats?",
       "answers": [
-        "Yes",
-        "No"
+        "Dogs",
+        "Cats"
       ]
     }
 

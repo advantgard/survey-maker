@@ -5,44 +5,20 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Quick Survey</title>
-
-    <style type="text/css">
-
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .js-survey-item {
-            display: none;
-        }
-
-        .js-survey-item.js-visible {
-            display: list-item;
-        }
-
-        .js-survey-prev, .js-survey-next, .js-survey-done {
-            display: none;
-        }
-
-        .survey-answer-selected > a {
-            color: red;
-        }
-
-    </style>
+    <title>Survey Maker</title>
 
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 
     <div class="survey-maker">
-        <h1>Take a quick survey and get an answer!</h1>
+        <h1>A simple survey maker!</h1>
 
         <div class="js-quick-survey">
             <ol class="js-survey-container"></ol>
             <div class="js-survey-controls">
-                <a href="javascript:void(0)" class="js-survey-prev" data-control-action="prev"><< Prev</a>
-                <a href="javascript:void(0)" class="js-survey-next" data-control-action="next">Next >></a>
+                <a href="javascript:void(0)" class="js-survey-prev" data-control-action="prev">Prev</a>
+                <a href="javascript:void(0)" class="js-survey-next" data-control-action="next">Next</a>
                 <a href="javascript:void(0)" class="js-survey-done" data-control-action="done">Done</a>
             </div>
         </div>
@@ -62,10 +38,10 @@
                     dataType: "json"
                 })
                         .done(function (config) {
-                            var substantialPresenceTest = new window.appScripts.surveyMaker(config, function (survey) {
-                                console.log(survey);
+                            var testSurvey = new window.appScripts.surveyMaker(config, function (survey) {
+                                alert("Thank you for completing the survey!");
                             });
-                            substantialPresenceTest.init();
+                            testSurvey.init();
                         });
             });
 
